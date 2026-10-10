@@ -1,242 +1,352 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Africakenya | Safe Job Platform</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You | Always & Forever</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f080c;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 182, 193, 0.15);
+            --primary-rose: #ff4d6d;
+            --accent-gold: #f7d698;
+            --text-light: #f8f9fa;
+            --text-muted: #c9b6be;
+        }
 
-<style>
-body {
-    margin: 0;
-    font-family: Arial;
-    background: #f5f7fb;
-}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-.warning {
-    background: #d62828;
-    color: white;
-    text-align: center;
-    padding: 12px;
-    font-weight: bold;
-}
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
 
-header {
-    background: #1d3557;
-    color: white;
-    text-align: center;
-    padding: 20px;
-}
+        /* Animated Floating Background Hearts */
+        .heart-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
 
-.container {
-    padding: 20px;
-}
+        .floating-heart {
+            position: absolute;
+            color: rgba(255, 77, 109, 0.2);
+            animation: float 10s infinite linear;
+            font-size: 1.2rem;
+        }
 
-.section-title {
-    font-size: 20px;
-    margin-top: 25px;
-    color: #1d3557;
-}
+        @keyframes float {
+            0% {
+                transform: translateY(105vh) scale(0.8) rotate(0deg);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.2) rotate(360deg);
+                opacity: 0;
+            }
+        }
 
-.card {
-    background: white;
-    padding: 15px;
-    margin: 10px 0;
-    border-left: 5px solid #2a9d8f;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.2rem;
+            position: relative;
+            z-index: 1;
+        }
 
-button {
-    padding: 8px 12px;
-    margin-top: 8px;
-    border: none;
-    cursor: pointer;
-}
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 3rem 1rem 2rem;
+        }
 
-.apply { background: #2a9d8f; color: white; }
-.report { background: #d62828; color: white; }
+        .hero h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: var(--primary-rose);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 15px rgba(255, 77, 109, 0.4);
+        }
 
-.section {
-    background: white;
-    padding: 15px;
-    margin-top: 15px;
-}
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
 
-textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 8px;
-}
+        /* Glassmorphism Card Style */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
 
-footer {
-    background: #1d3557;
-    color: white;
-    text-align: center;
-    padding: 15px;
-    margin-top: 20px;
-}
-</style>
+        /* Letter Section */
+        .letter-content {
+            line-height: 1.8;
+            color: var(--text-light);
+            font-size: 1.02rem;
+        }
+
+        .letter-content p {
+            margin-bottom: 1.2rem;
+        }
+
+        .highlight {
+            color: var(--accent-gold);
+            font-weight: 500;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.3rem;
+            color: var(--accent-gold);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Interactive "Open When..." Flip Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .flip-card {
+            background-color: transparent;
+            height: 180px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.2rem;
+            border: 1px solid var(--card-border);
+        }
+
+        .flip-card-front {
+            background: linear-gradient(135deg, rgba(255, 77, 109, 0.15), rgba(20, 10, 15, 0.8));
+            color: var(--accent-gold);
+            font-weight: 500;
+            font-size: 1.05rem;
+        }
+
+        .flip-card-back {
+            background: linear-gradient(135deg, rgba(247, 214, 152, 0.15), rgba(20, 10, 15, 0.9));
+            color: var(--text-light);
+            transform: rotateY(180deg);
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        /* Interactive Reason Generator */
+        .interactive-section {
+            text-align: center;
+        }
+
+        .reason-box {
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: var(--accent-gold);
+            font-weight: 500;
+            margin: 1.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .btn-love {
+            background: linear-gradient(45deg, var(--primary-rose), #c9184a);
+            color: white;
+            border: none;
+            padding: 0.9rem 2rem;
+            font-size: 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-love:hover {
+            transform: translateY(-2deg);
+            box-shadow: 0 6px 20px rgba(255, 77, 109, 0.5);
+        }
+
+        .btn-love:active {
+            transform: translateY(0);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2.8rem; }
+            .container { padding: 1rem; }
+            .glass-card { padding: 1.4rem; }
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- SAFETY -->
-<div class="warning">
-⚠ NEVER PAY FOR A JOB. REPORT ANY SUSPICIOUS LISTING.
-</div>
+    <div class="heart-bg" id="heartBg"></div>
 
-<header>
-<h1>Africakenya</h1>
-<p>Safe Jobs • Online Work • Care Jobs • Government Jobs • Requests</p>
-</header>
+    <div class="container">
+        <!-- Hero Header -->
+        <header class="hero">
+            <h1>To My Favorite Person</h1>
+            <p>Almost 2 years with you, and my heart is still entirely yours.</p>
+        </header>
 
-<div class="container">
+        <!-- Main Letter -->
+        <main class="glass-card">
+            <h2 class="section-title">A Note From My Heart</h2>
+            <div class="letter-content">
+                <p>Hey my love,</p>
+                <p>We’ve been seeing each other for <span class="highlight">almost 2 years now</span>, and I wanted to make this for you to remind you of something simple: no matter how much distance is between us right now, my feelings for you haven't shifted.</p>
+                <p>I’ll be honest—nobody in this world moves my emotions the way you do. Whether I'm feeling pure happiness or overthinking out of jealousy, it’s all because <span class="highlight">you’re the only person who holds that kind of power over my heart</span>. Nobody else comes close.</p>
+                <p>I know these last two months without seeing each other in person have felt quiet. Sometimes on calls we don't know what to say, or the vibe feels different. But silence with you will always mean more to me than noise with anyone else. I’m counting down the days until I get to hold you again.</p>
+            </div>
+        </main>
 
-<!-- NO SKILLS -->
-<div class="section-title">🔥 No-Skills Online Jobs</div>
+        <!-- Interactive Open When Cards -->
+        <section class="glass-card">
+            <h2 class="section-title">Open When...</h2>
+            <div class="cards-grid">
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            💌 Open when you miss me...
+                        </div>
+                        <div class="flip-card-back">
+                            Remember that every single day brings us one step closer to seeing each other again. You're always on my mind.
+                        </div>
+                    </div>
+                </div>
 
-<div class="card">
-<h3>Online Surveys</h3>
-<p>Answer simple questions and earn.</p>
-<button class="apply" onclick="applyJob('Online Surveys')">Apply</button>
-<button class="report" onclick="reportJob('Online Surveys')">Report</button>
-</div>
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            🌙 Open when our calls feel quiet...
+                        </div>
+                        <div class="flip-card-back">
+                            Even when we don't have words, just hearing you breathe on the line reminds me I'm connected to my favorite person.
+                        </div>
+                    </div>
+                </div>
 
-<div class="card">
-<h3>Data Entry</h3>
-<p>Type simple information for companies.</p>
-<button class="apply" onclick="applyJob('Data Entry')">Apply</button>
-<button class="report" onclick="reportJob('Data Entry')">Report</button>
-</div>
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            ✨ Open when you doubt us...
+                        </div>
+                        <div class="flip-card-back">
+                            Almost 2 years of history, memories, and love. Distance is just a temporary test for something permanent.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<!-- SKILLED -->
-<div class="section-title">💻 Skilled Online Jobs</div>
+        <!-- Interactive Reasons Button -->
+        <section class="glass-card interactive-section">
+            <h2 class="section-title">Why You're The Only One</h2>
+            <div class="reason-box" id="reasonText">
+                Tap the button below whenever you need a reminder...
+            </div>
+            <button class="btn-love" onclick="generateReason()">Tap For A Reason ❤️</button>
+        </section>
 
-<div class="card">
-<h3>Freelance Writing</h3>
-<p>Write articles and blogs.</p>
-<button class="apply" onclick="applyJob('Writing')">Apply</button>
-<button class="report" onclick="reportJob('Writing')">Report</button>
-</div>
+        <footer>
+            <p>Built with love, just for you. Almost 2 years and forever to go.</p>
+        </footer>
+    </div>
 
-<div class="card">
-<h3>Graphic Design</h3>
-<p>Create logos and designs.</p>
-<button class="apply" onclick="applyJob('Design')">Apply</button>
-<button class="report" onclick="reportJob('Design')">Report</button>
-</div>
+    <script>
+        // Floating Hearts Background Generator
+        const heartBg = document.getElementById('heartBg');
+        const heartSymbols = ['❤️', '💖', '💕', '💗', '✨'];
 
-<!-- CARE JOBS -->
-<div class="section-title">🏥 Care Jobs</div>
+        for (let i = 0; i < 25; i++) {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            heart.innerText = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 5 + 7) + 's';
+            heart.style.animationDelay = (Math.random() * 5) + 's';
+            heartBg.appendChild(heart);
+        }
 
-<div class="card">
-<h3>Nursing Assistant</h3>
-<p>Support hospital staff.</p>
-<button class="apply" onclick="applyJob('Nursing')">Apply</button>
-<button class="report" onclick="reportJob('Nursing')">Report</button>
-</div>
+        // Random Reason Generator
+        const reasons = [
+            "Because no one else makes my heart race or moves my feelings like you do.",
+            "Because almost 2 years in, you are still my favorite person to wake up thinking about.",
+            "Because your smile makes all the quiet or stressful days completely worth it.",
+            "Because even across the distance, my heart belongs strictly to you.",
+            "Because loving you comes easier than anything else in my life.",
+            "Because I don't just love you—I choose you every single day."
+        ];
 
-<div class="card">
-<h3>Elder Care</h3>
-<p>Take care of elderly people.</p>
-<button class="apply" onclick="applyJob('Elder Care')">Apply</button>
-<button class="report" onclick="reportJob('Elder Care')">Report</button>
-</div>
-
-<!-- PHYSICAL -->
-<div class="section-title">🏢 Physical Jobs</div>
-
-<div class="card">
-<h3>Shop Assistant</h3>
-<p>Work in retail stores.</p>
-<button class="apply" onclick="applyJob('Shop Assistant')">Apply</button>
-<button class="report" onclick="reportJob('Shop Assistant')">Report</button>
-</div>
-
-<div class="card">
-<h3>Security Guard</h3>
-<p>Protect buildings.</p>
-<button class="apply" onclick="applyJob('Security')">Apply</button>
-<button class="report" onclick="reportJob('Security')">Report</button>
-</div>
-
-<!-- GOVERNMENT -->
-<div class="section-title">🏛 Government Jobs</div>
-
-<div class="card">
-<h3>Clerical Officer</h3>
-<p>Office administration work.</p>
-<button class="apply" onclick="applyJob('Gov Job')">Apply</button>
-<button class="report" onclick="reportJob('Gov Job')">Report</button>
-</div>
-
-<!-- REQUESTS -->
-<div class="section-title">📚 Requests (People needing help)</div>
-
-<div class="card">
-<h3>Private Tutor Needed</h3>
-<p>Students requesting tutoring.</p>
-<button class="apply" onclick="applyJob('Tutor Request')">Contact</button>
-<button class="report" onclick="reportJob('Tutor Request')">Report</button>
-</div>
-
-<div class="card">
-<h3>Freelancer Needed</h3>
-<p>People requesting services.</p>
-<button class="apply" onclick="applyJob('Freelance Request')">Contact</button>
-<button class="report" onclick="reportJob('Freelance Request')">Report</button>
-</div>
-
-<!-- SAFETY -->
-<div class="section">
-<h2>⚠ Safety Rules</h2>
-<ul>
-<li>Never pay for jobs</li>
-<li>Meet in public places for physical jobs</li>
-<li>Trust verified companies only</li>
-<li>Report anything suspicious</li>
-</ul>
-</div>
-
-<!-- REPORT -->
-<div class="section">
-<h2>🚨 Report Issue</h2>
-<textarea id="reportText" placeholder="Describe issue..."></textarea>
-<button onclick="submitReport()">Submit Report</button>
-</div>
-
-<!-- QUESTIONS -->
-<div class="section">
-<h2>❓ Ask Questions</h2>
-<textarea id="questionText" placeholder="Ask anything..."></textarea>
-<button onclick="submitQuestion()">Submit</button>
-</div>
-
-</div>
-
-<!-- FIREBASE SCRIPTS (KEEP AT BOTTOM ALWAYS) -->
-<script type="module" src="js/firebase.js"></script>
-<script type="module" src="js/app.js"></script>
-
-<script>
-function applyJob(job){
-    alert("Applied for: " + job + " (Connected to Firebase next step)");
-}
-
-function reportJob(job){
-    alert("Reported: " + job + " (Will be sent to Firebase)");
-}
-
-function submitReport(){
-    let text = document.getElementById("reportText").value;
-    alert("Report sent: " + text);
-}
-
-function submitQuestion(){
-    let text = document.getElementById("questionText").value;
-    alert("Question sent: " + text);
-}
-</script>
-
+        function generateReason() {
+            const reasonBox = document.getElementById('reasonText');
+            const randomIndex = Math.floor(Math.random() * reasons.length);
+            reasonBox.style.opacity = '0';
+            setTimeout(() => {
+                reasonBox.innerText = `"${reasons[randomIndex]}"`;
+                reasonBox.style.opacity = '1';
+            }, 200);
+        }
+    </script>
 </body>
 </html>
-                       
